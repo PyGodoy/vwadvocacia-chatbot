@@ -1,149 +1,162 @@
-const cities = [
-    'Palmas',
-    'Porto Nacional',
-    'Paraíso do Tocantins',
-    'Araguaina',
-    'Outra Cidade'
-  ];
+const areas = [
+  'Trabalhista',
+  'Previdenciário',
+  'Consumidor',
+  'Família e Sucessões',
+  'Imobiliário',
+  'Holdings',
+  'Outro assunto'
+];
+
+let selectedCity = '';
+let selectedArea = '';
+let currentStep = 'welcome';
+let isTyping = false;
+
+function showTypingIndicator() {
+  if (isTyping) return;
   
-  const areas = [
-    'Trabalhista',
-    'Previdenciário',
-    'Consumidor',
-    'Família e Sucessões',
-    'Imobiliário',
-    'Holdings',
-    'Outro assunto/Não sei'
-  ];
+  isTyping = true;
+  const messagesDiv = document.getElementById('chatMessages');
+  const typingDiv = document.createElement('div');
+  typingDiv.className = 'typing-indicator';
+  typingDiv.id = 'typingIndicator';
   
-  let selectedCity = '';
-  let selectedArea = '';
-  let currentStep = 'welcome';
-  let isTyping = false;
+  for (let i = 0; i < 3; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'typing-dot';
+    typingDiv.appendChild(dot);
+  }
   
-  function showTypingIndicator() {
-    if (isTyping) return;
-    
-    isTyping = true;
-    const messagesDiv = document.getElementById('chatMessages');
-    const typingDiv = document.createElement('div');
-    typingDiv.className = 'typing-indicator';
-    typingDiv.id = 'typingIndicator';
-    
-    for (let i = 0; i < 3; i++) {
-      const dot = document.createElement('div');
-      dot.className = 'typing-dot';
-      typingDiv.appendChild(dot);
-    }
-    
-    messagesDiv.appendChild(typingDiv);
+  messagesDiv.appendChild(typingDiv);
+  messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
+
+function hideTypingIndicator() {
+  const typingIndicator = document.getElementById('typingIndicator');
+  if (typingIndicator) {
+    typingIndicator.remove();
+  }
+  isTyping = false;
+}
+
+function addOptions(options, callback) {
+  const messagesDiv = document.getElementById('chatMessages');
+  const optionsContainer = document.createElement('div');
+  optionsContainer.className = 'options-container';
+
+  options.forEach(option => {
+    const button = document.createElement('button');
+    button.className = 'option-button';
+    button.textContent = option;
+    button.onclick = () => {
+      addMessage(option, false);
+      callback(option);
+    };
+    optionsContainer.appendChild(button);
+  });
+
+  messagesDiv.appendChild(optionsContainer);
+  
+  const lastMessage = optionsContainer.previousElementSibling;
+  if (lastMessage) {
+    const offsetPosition = lastMessage.offsetTop - 20; 
+    messagesDiv.scrollTop = offsetPosition;
+  }
+}
+
+function addMessage(message, isBot = true) {
+  hideTypingIndicator();
+  
+  const messagesDiv = document.getElementById('chatMessages');
+  const messageDiv = document.createElement('div');
+  messageDiv.className = `message ${isBot ? 'bot-message' : 'user-message'}`;
+  messageDiv.textContent = message;
+  messagesDiv.appendChild(messageDiv);
+  
+  if (message === 'Selecione o assunto de sua questão:') {
+    const offsetPosition = messageDiv.offsetTop - 20;
+    messagesDiv.scrollTop = offsetPosition;
+  } else {
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
   }
-  
-  function hideTypingIndicator() {
-    const typingIndicator = document.getElementById('typingIndicator');
-    if (typingIndicator) {
-      typingIndicator.remove();
-    }
-    isTyping = false;
-  }
-  
-  function addMessage(message, isBot = true) {
+}
+
+function simulateTyping(message, callback) {
+  showTypingIndicator();
+  setTimeout(() => {
     hideTypingIndicator();
+    callback();
+  }, 1500);
+}
+
+function redirectToWhatsApp(area) {
+  // Redirecionar com base na área selecionada
+  switch(area) {
+    case 'Trabalhista':
+      window.location.href = 'https://api.whatsapp.com/send/?phone=5563992763709&text=Olá%2C+estou+interessado+em+Advogado+Especialista+em+Direito+Trabalhista&type=phone_number&app_absent=0';
+      break;
+    case 'Previdenciário':
+      window.location.href = 'https://api.whatsapp.com/send/?phone=5563992763709&text=Olá%2C+estou+interessado+em+Advogado+Especialista+em+Direito+Previdenciário&type=phone_number&app_absent=0';
+      break;
+    case 'Consumidor':
+      window.location.href = 'https://api.whatsapp.com/send/?phone=5563992763709&text=Olá%2C+estou+interessado+em+Advogado+Especialista+em+Direito+do+Consumidor&type=phone_number&app_absent=0';
+      break;
+    case 'Família e Sucessões':
+      window.location.href = 'https://api.whatsapp.com/send/?phone=5563992763709&text=Olá%2C+estou+interessado+em+Advogado+Especialista+em+Direito+de+Família+e+Sucessões&type=phone_number&app_absent=0';
+      break;
+    case 'Imobiliário':
+      window.location.href = 'https://api.whatsapp.com/send/?phone=5563992763709&text=Olá%2C+estou+interessado+em+Advogado+Especialista+em+Direito+Imobiliário&type=phone_number&app_absent=0';
+      break;
+    case 'Holdings':
+      window.location.href = 'https://api.whatsapp.com/send/?phone=5563992763709&text=Olá%2C+estou+interessado+em+Advogado+Especialista+em+Holdings&type=phone_number&app_absent=0';
+      break;
+    case 'Outro assunto':
+      window.location.href = 'https://api.whatsapp.com/send/?phone=5563992763709&text=Olá%2C+estou+interessado+em+consultar+um+Advogado+sobre+um+assunto+específico&type=phone_number&app_absent=0';
+      break;
+    default:
+      // Caso padrão, se algo der errado
+      addMessage('Desculpe, houve um erro. Por favor, tente novamente.');
+  }
+}
+
+function handleAreaSelection(area) {
+  selectedArea = area;
+  currentStep = 'contact';
+  
+  simulateTyping('Por favor, aguarde enquanto conectamos você com um de nossos advogados especialistas.', () => {
+    addMessage('Por favor, aguarde enquanto conectamos você com um de nossos advogados especialistas.');
     
-    const messagesDiv = document.getElementById('chatMessages');
-    const messageDiv = document.createElement('div');
-    messageDiv.className = `message ${isBot ? 'bot-message' : 'user-message'}`;
-    messageDiv.textContent = message;
-    messagesDiv.appendChild(messageDiv);
-    messagesDiv.scrollTop = messagesDiv.scrollHeight;
-  }
-  
-  function addOptions(options, callback) {
-    const messagesDiv = document.getElementById('chatMessages');
-    const optionsContainer = document.createElement('div');
-    optionsContainer.className = 'options-container';
-  
-    options.forEach(option => {
-      const button = document.createElement('button');
-      button.className = 'option-button';
-      button.textContent = option;
-      button.onclick = () => {
-        // Primeiro, simula o usuário enviando a mensagem
-        addMessage(option, false);
-        // Depois processa a seleção
-        callback(option);
-      };
-      optionsContainer.appendChild(button);
-    });
-  
-    messagesDiv.appendChild(optionsContainer);
-    messagesDiv.scrollTop = messagesDiv.scrollHeight;
-  }
-  
-  function simulateTyping(message, callback) {
-    showTypingIndicator();
     setTimeout(() => {
-      hideTypingIndicator();
-      callback();
-    }, 1500);
-  }
-  
-  function handleCitySelection(city) {
-    selectedCity = city;
-    currentStep = 'area';
-    
-    simulateTyping('Selecione o assunto de sua questão:', () => {
-      addMessage('Selecione o assunto de sua questão:');
-      addOptions(areas, handleAreaSelection);
-    });
-  }
-  
-  function handleAreaSelection(area) {
-    selectedArea = area;
-    currentStep = 'contact';
-    
-    simulateTyping('Por favor, aguarde enquanto conectamos você com um de nossos advogados especialistas.', () => {
-      addMessage('Por favor, aguarde enquanto conectamos você com um de nossos advogados especialistas.');
-      setTimeout(() => {
-        simulateTyping('Entre em contato agora', () => {
-          addMessage('Entre em contato agora');
-          addOptions(['Falar com o Advogado'], startChat);
-        });
-      }, 1000);
-    });
-  }
-  
-  function startChat() {
-    simulateTyping('Conectando com advogado especialista...', () => {
-      addMessage('Conectando com advogado especialista...');
-    });
-  }
-  
-  function init() {
-    simulateTyping('Seja bem-vindo!', () => {
-      addMessage('Seja bem-vindo!');
-      setTimeout(() => {
-        simulateTyping('Selecione a cidade em que você procura por advogado:', () => {
-          addMessage('Selecione a cidade em que você procura por advogado:');
-          addOptions(cities, handleCitySelection);
-        });
-      }, 500);
-    });
-  }
-  
-  function sendMessage() {
-    const input = document.getElementById('messageInput');
-    const message = input.value.trim();
-    
-    if (message) {
-      addMessage(message, false);
-      input.value = '';
-      simulateTyping('...', () => {
-        // Aqui você implementaria a lógica de resposta do bot
+      redirectToWhatsApp(area);
+    }, 1000);
+  });
+}
+
+function init() {
+  simulateTyping('Seja bem-vindo!', () => {
+    addMessage('Seja bem-vindo!');
+    setTimeout(() => {
+      simulateTyping('Selecione o assunto de sua questão:', () => {
+        addMessage('Selecione o assunto de sua questão:');
+        addOptions(areas, handleAreaSelection);
       });
-    }
-  }
+    }, 500);
+  });
+}
+
+function sendMessage() {
+  const input = document.getElementById('messageInput');
+  const message = input.value.trim();
   
-  // Inicializa o chat quando a página carrega
-  window.onload = init;
+  if (message) {
+    addMessage(message, false);
+    input.value = '';
+    simulateTyping('...', () => {
+      // Aqui você implementaria a lógica de resposta do bot
+    });
+  }
+}
+
+// Inicializa o chat quando a página carrega
+window.onload = init;
