@@ -60,7 +60,7 @@ function addOptions(options, callback) {
   
   const lastMessage = optionsContainer.previousElementSibling;
   if (lastMessage) {
-    const offsetPosition = lastMessage.offsetTop - 20; 
+    const offsetPosition = lastMessage.offsetTop - 70; 
     messagesDiv.scrollTop = offsetPosition;
   }
 }
@@ -135,7 +135,7 @@ function handleAreaSelection(area) {
 
 function init() {
   simulateTyping('Seja bem-vindo!', () => {
-    addMessage('Seja bem-vindo!');
+    addMessage('Seja bem-vindo ao escritório Vitorio & Wortmann!');
     setTimeout(() => {
       simulateTyping('Selecione o assunto de sua questão:', () => {
         addMessage('Selecione o assunto de sua questão:');
