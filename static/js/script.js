@@ -94,25 +94,25 @@ function redirectToWhatsApp(area) {
   // Redirecionar com base na área selecionada
   switch(area) {
     case 'Trabalhista':
-      window.location.href = 'https://api.whatsapp.com/send/?phone=5563992763709&text=Olá%2C+estou+interessado+em+Advogado+Especialista+em+Direito+Trabalhista&type=phone_number&app_absent=0';
+      window.location.href = 'https://api.whatsapp.com/send/?phone=5563992395560&text=Olá%2C+estou+interessado+em+Advogado+Especialista+em+Direito+Trabalhista&type=phone_number&app_absent=0';
       break;
     case 'Previdenciário':
-      window.location.href = 'https://api.whatsapp.com/send/?phone=5563992763709&text=Olá%2C+estou+interessado+em+Advogado+Especialista+em+Direito+Previdenciário&type=phone_number&app_absent=0';
+      window.location.href = 'https://api.whatsapp.com/send/?phone=5563992395560&text=Olá%2C+estou+interessado+em+Advogado+Especialista+em+Direito+Previdenciário&type=phone_number&app_absent=0';
       break;
     case 'Consumidor':
-      window.location.href = 'https://api.whatsapp.com/send/?phone=5563992763709&text=Olá%2C+estou+interessado+em+Advogado+Especialista+em+Direito+do+Consumidor&type=phone_number&app_absent=0';
+      window.location.href = 'https://api.whatsapp.com/send/?phone=5563992395560&text=Olá%2C+estou+interessado+em+Advogado+Especialista+em+Direito+do+Consumidor&type=phone_number&app_absent=0';
       break;
     case 'Família e Sucessões':
-      window.location.href = 'https://api.whatsapp.com/send/?phone=5563992763709&text=Olá%2C+estou+interessado+em+Advogado+Especialista+em+Direito+de+Família+e+Sucessões&type=phone_number&app_absent=0';
+      window.location.href = 'https://api.whatsapp.com/send/?phone=5563992395560&text=Olá%2C+estou+interessado+em+Advogado+Especialista+em+Direito+de+Família+e+Sucessões&type=phone_number&app_absent=0';
       break;
     case 'Imobiliário':
-      window.location.href = 'https://api.whatsapp.com/send/?phone=5563992763709&text=Olá%2C+estou+interessado+em+Advogado+Especialista+em+Direito+Imobiliário&type=phone_number&app_absent=0';
+      window.location.href = 'https://api.whatsapp.com/send/?phone=5563992395560&text=Olá%2C+estou+interessado+em+Advogado+Especialista+em+Direito+Imobiliário&type=phone_number&app_absent=0';
       break;
     case 'Holdings':
-      window.location.href = 'https://api.whatsapp.com/send/?phone=5563992763709&text=Olá%2C+estou+interessado+em+Advogado+Especialista+em+Holdings&type=phone_number&app_absent=0';
+      window.location.href = 'https://api.whatsapp.com/send/?phone=5563992395560&text=Olá%2C+estou+interessado+em+Advogado+Especialista+em+Holdings&type=phone_number&app_absent=0';
       break;
     case 'Outro assunto':
-      window.location.href = 'https://api.whatsapp.com/send/?phone=5563992763709&text=Olá%2C+estou+interessado+em+consultar+um+Advogado+sobre+um+assunto+específico&type=phone_number&app_absent=0';
+      window.location.href = 'https://api.whatsapp.com/send/?phone=5563992395560&text=Olá%2C+estou+interessado+em+consultar+um+Advogado+sobre+um+assunto+específico&type=phone_number&app_absent=0';
       break;
     default:
       // Caso padrão, se algo der errado
